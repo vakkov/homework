@@ -1,4 +1,4 @@
-# A CMake C++ library skeleton
+# A Running Median C++ implementation
 
 ## Build
 
