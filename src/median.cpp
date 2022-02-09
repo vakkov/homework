@@ -20,17 +20,23 @@ MedianFinder::~MedianFinder() {};
 
 void MedianFinder::addNum(double num)
 {
-    //check if the heaps are equal in size
-    if (maxHeap.size()==minHeap.size()) {
+    if (maxHeap.empty() || num <= maxHeap.top()) {
         maxHeap.push(num);
-        minHeap.push(maxHeap.top());
-        maxHeap.pop();
     }
     else {
         minHeap.push(num);
-        maxHeap.push(minHeap.top());
-        minHeap.pop();
     }
+
+    //in case of uneven size
+    if (minHeap.size() > maxHeap.size() + 1) {
+		maxHeap.push(minHeap.top());
+		minHeap.pop();
+	}
+    else if (maxHeap.size() > minHeap.size() + 1) {
+        // Move an element from the lower half to the upper half
+        minHeap.push(maxHeap.top());
+        maxHeap.pop();
+		}
 }
 
 tl::optional<double> MedianFinder::findMedian() 
